@@ -1,0 +1,54 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8A4F3B7E-9C1D-4E2A-8B3F-1D2E3F4A5B6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9B5F4C8F-0D2E-4F3B-9C4G-2E3F4G5B6C7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowSystem.Domain", "src\CashFlowSystem.Domain\CashFlowSystem.Domain.csproj", "{A1B2C3D4-E5F6-4A5B-8C9D-1E2F3A4B5C6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowSystem.Application", "src\CashFlowSystem.Application\CashFlowSystem.Application.csproj", "{B2C3D4E5-F6A7-5B6C-9D0E-2F3A4B5C6D7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowSystem.Infrastructure", "src\CashFlowSystem.Infrastructure\CashFlowSystem.Infrastructure.csproj", "{C3D4E5F6-A7B8-6C7D-0E1F-3A4B5C6D7E8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowSystem.API", "src\CashFlowSystem.API\CashFlowSystem.API.csproj", "{D4E5F6A7-B8C9-7D8E-1F2A-4B5C6D7E8F9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlowSystem.Domain.Tests", "tests\CashFlowSystem.Domain.Tests\CashFlowSystem.Domain.Tests.csproj", "{E5F6A7B8-C9D0-8E9F-2A3B-5C6D7E8F9A0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1B2C3D4-E5F6-4A5B-8C9D-1E2F3A4B5C6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-E5F6-4A5B-8C9D-1E2F3A4B5C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-E5F6-4A5B-8C9D-1E2F3A4B5C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-E5F6-4A5B-8C9D-1E2F3A4B5C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2C3D4E5-F6A7-5B6C-9D0E-2F3A4B5C6D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2C3D4E5-F6A7-5B6C-9D0E-2F3A4B5C6D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2C3D4E5-F6A7-5B6C-9D0E-2F3A4B5C6D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2C3D4E5-F6A7-5B6C-9D0E-2F3A4B5C6D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D4E5F6-A7B8-6C7D-0E1F-3A4B5C6D7E8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D4E5F6-A7B8-6C7D-0E1F-3A4B5C6D7E8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D4E5F6-A7B8-6C7D-0E1F-3A4B5C6D7E8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D4E5F6-A7B8-6C7D-0E1F-3A4B5C6D7E8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4E5F6A7-B8C9-7D8E-1F2A-4B5C6D7E8F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E5F6A7-B8C9-7D8E-1F2A-4B5C6D7E8F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4E5F6A7-B8C9-7D8E-1F2A-4B5C6D7E8F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E5F6A7-B8C9-7D8E-1F2A-4B5C6D7E8F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5F6A7B8-C9D0-8E9F-2A3B-5C6D7E8F9A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5F6A7B8-C9D0-8E9F-2A3B-5C6D7E8F9A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5F6A7B8-C9D0-8E9F-2A3B-5C6D7E8F9A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5F6A7B8-C9D0-8E9F-2A3B-5C6D7E8F9A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A1B2C3D4-E5F6-4A5B-8C9D-1E2F3A4B5C6D} = {8A4F3B7E-9C1D-4E2A-8B3F-1D2E3F4A5B6C}
+		{B2C3D4E5-F6A7-5B6C-9D0E-2F3A4B5C6D7E} = {8A4F3B7E-9C1D-4E2A-8B3F-1D2E3F4A5B6C}
+		{C3D4E5F6-A7B8-6C7D-0E1F-3A4B5C6D7E8F} = {8A4F3B7E-9C1D-4E2A-8B3F-1D2E3F4A5B6C}
+		{D4E5F6A7-B8C9-7D8E-1F2A-4B5C6D7E8F9A} = {8A4F3B7E-9C1D-4E2A-8B3F-1D2E3F4A5B6C}
+		{E5F6A7B8-C9D0-8E9F-2A3B-5C6D7E8F9A0B} = {9B5F4C8F-0D2E-4F3B-9C4G-2E3F4G5B6C7D}
+	EndGlobalSection
+EndGlobal
