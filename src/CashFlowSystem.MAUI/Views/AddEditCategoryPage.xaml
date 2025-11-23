@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CashFlowSystem.MAUI.ViewModels"
+             x:Class="CashFlowSystem.MAUI.Views.AddEditCategoryPage"
+             x:DataType="viewmodels:AddEditCategoryViewModel"
+             Title="{Binding IsEditMode, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Editar Categoría|Nueva Categoría'}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="{Binding IsEditMode, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Editar Categoría|Crear Categoría'}"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource Gray900}" />
+
+            <!-- Name -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Nombre *" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Border BackgroundColor="White" StrokeThickness="1" Stroke="{StaticResource Gray300}" Padding="12,8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding Name}" Placeholder="Ej: Alimentación" BackgroundColor="Transparent" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Description -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Descripción" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Border BackgroundColor="White" StrokeThickness="1" Stroke="{StaticResource Gray300}" Padding="12,8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding Description}" Placeholder="Descripción opcional" BackgroundColor="Transparent" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Type -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Tipo *" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Picker ItemsSource="{Binding TypeOptions}"
+                        SelectedItem="{Binding Type}"
+                        BackgroundColor="White" />
+            </VerticalStackLayout>
+
+            <!-- Icon -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Ícono" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <CollectionView ItemsSource="{Binding IconOptions}"
+                               SelectedItem="{Binding Icon}"
+                               SelectionMode="Single"
+                               HeightRequest="120">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="8" HorizontalItemSpacing="10" VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Border WidthRequest="40" HeightRequest="40"
+                                    BackgroundColor="{StaticResource Gray100}"
+                                    StrokeThickness="2">
+                                <Border.Stroke>
+                                    <Binding Path=".">
+                                        <Binding.Converter>
+                                            <StaticResource ResourceKey="SelectedIconBorderConverter" />
+                                        </Binding.Converter>
+                                    </Binding>
+                                </Border.Stroke>
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="8" />
+                                </Border.StrokeShape>
+                                <Label Text="{Binding .}"
+                                       FontSize="24"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Color -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Color" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <CollectionView ItemsSource="{Binding ColorOptions}"
+                               SelectedItem="{Binding Color}"
+                               SelectionMode="Single"
+                               HeightRequest="60">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="8" HorizontalItemSpacing="10" VerticalItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Border WidthRequest="40" HeightRequest="40"
+                                    BackgroundColor="{Binding .}"
+                                    StrokeThickness="3"
+                                    Stroke="Transparent">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="20" />
+                                </Border.StrokeShape>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Loading -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Primary}" HeightRequest="40" />
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,20,0,0">
+                <Button Grid.Column="0" Text="Cancelar" Command="{Binding CancelCommand}"
+                        BackgroundColor="{StaticResource Gray300}" TextColor="{StaticResource Gray900}"
+                        HeightRequest="50" CornerRadius="10" FontAttributes="Bold" />
+                <Button Grid.Column="1" Text="Guardar" Command="{Binding SaveCommand}"
+                        BackgroundColor="{StaticResource Primary}" TextColor="White"
+                        HeightRequest="50" CornerRadius="10" FontAttributes="Bold" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
