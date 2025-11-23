@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CashFlowSystem.MAUI.ViewModels"
+             xmlns:models="clr-namespace:CashFlowSystem.MAUI.Models"
+             x:Class="CashFlowSystem.MAUI.Views.DashboardPage"
+             x:DataType="viewmodels:DashboardViewModel"
+             Title="Dashboard">
+
+    <ScrollView>
+        <RefreshView Command="{Binding LoadDashboardCommand}" IsRefreshing="{Binding IsBusy}">
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <!-- Welcome Header -->
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="Bienvenido" FontSize="16" TextColor="{StaticResource Gray600}" />
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="{Binding UserName}"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Gray900}" />
+                        <Button Text="Salir"
+                                Command="{Binding LogoutCommand}"
+                                BackgroundColor="{StaticResource Secondary}"
+                                TextColor="White"
+                                Padding="15,5"
+                                CornerRadius="8"
+                                FontSize="12" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <!-- Summary Cards Grid -->
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="15" RowSpacing="15">
+
+                    <!-- Current Balance Card -->
+                    <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                            BackgroundColor="{StaticResource Primary}"
+                            StrokeThickness="0"
+                            Padding="20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="15" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Balance Actual" TextColor="White" FontSize="14" Opacity="0.9" />
+                            <Label Text="{Binding CurrentBalance, StringFormat='${0:N2}'}"
+                                   TextColor="White"
+                                   FontSize="32"
+                                   FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Total Income Card -->
+                    <Border Grid.Column="0" Grid.Row="1"
+                            BackgroundColor="#4CAF50"
+                            StrokeThickness="0"
+                            Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Ingresos" TextColor="White" FontSize="12" />
+                            <Label Text="{Binding TotalIncome, StringFormat='${0:N2}'}"
+                                   TextColor="White"
+                                   FontSize="20"
+                                   FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Total Expense Card -->
+                    <Border Grid.Column="1" Grid.Row="1"
+                            BackgroundColor="#F44336"
+                            StrokeThickness="0"
+                            Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Egresos" TextColor="White" FontSize="12" />
+                            <Label Text="{Binding TotalExpense, StringFormat='${0:N2}'}"
+                                   TextColor="White"
+                                   FontSize="20"
+                                   FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <!-- Net Flow Card -->
+                <Border BackgroundColor="{StaticResource Gray100}"
+                        StrokeThickness="0"
+                        Padding="15">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Label Text="Flujo Neto:" FontSize="16" TextColor="{StaticResource Gray900}" />
+                        <Label Text="{Binding NetFlow, StringFormat='${0:N2}'}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}" />
+                    </HorizontalStackLayout>
+                </Border>
+
+                <!-- Recent Transactions Section -->
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Transacciones Recientes"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Gray900}" />
+
+                    <CollectionView ItemsSource="{Binding RecentTransactions}">
+                        <CollectionView.EmptyView>
+                            <ContentView>
+                                <Label Text="No hay transacciones recientes"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       TextColor="{StaticResource Gray600}"
+                                       Margin="0,40,0,0" />
+                            </ContentView>
+                        </CollectionView.EmptyView>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:TransactionDto">
+                                <Border BackgroundColor="White"
+                                        StrokeThickness="1"
+                                        Stroke="{StaticResource Gray200}"
+                                        Padding="15"
+                                        Margin="0,5">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10" />
+                                    </Border.StrokeShape>
+
+                                    <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="10">
+                                        <Label Grid.Column="0" Grid.Row="0"
+                                               Text="{Binding Description}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Gray900}" />
+
+                                        <Label Grid.Column="0" Grid.Row="1"
+                                               Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                                               FontSize="12"
+                                               TextColor="{StaticResource Gray600}" />
+
+                                        <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"
+                                               Text="{Binding Amount, StringFormat='${0:N2}'}"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               VerticalOptions="Center">
+                                            <Label.TextColor>
+                                                <MultiBinding Converter="{StaticResource TransactionTypeToColorConverter}">
+                                                    <Binding Path="Type" />
+                                                </MultiBinding>
+                                            </Label.TextColor>
+                                        </Label>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </RefreshView>
+    </ScrollView>
+</ContentPage>

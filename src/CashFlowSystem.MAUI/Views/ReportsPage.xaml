@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CashFlowSystem.MAUI.ViewModels"
+             x:Class="CashFlowSystem.MAUI.Views.ReportsPage"
+             x:DataType="viewmodels:ReportsViewModel"
+             Title="Informes">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="Generar Informe"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource Gray900}" />
+
+            <!-- Date Range Selection -->
+            <Border BackgroundColor="{StaticResource Gray100}"
+                    StrokeThickness="0"
+                    Padding="15">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Rango de Fechas"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Gray900}" />
+
+                    <!-- Start Date -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Fecha Inicio" TextColor="{StaticResource Gray700}" FontSize="14" />
+                        <Border BackgroundColor="White"
+                                StrokeThickness="1"
+                                Stroke="{StaticResource Gray300}"
+                                Padding="12,8">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
+                            <DatePicker Date="{Binding StartDate}"
+                                        BackgroundColor="Transparent"
+                                        TextColor="{StaticResource Gray900}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- End Date -->
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Fecha Fin" TextColor="{StaticResource Gray700}" FontSize="14" />
+                        <Border BackgroundColor="White"
+                                StrokeThickness="1"
+                                Stroke="{StaticResource Gray300}"
+                                Padding="12,8">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8" />
+                            </Border.StrokeShape>
+                            <DatePicker Date="{Binding EndDate}"
+                                        BackgroundColor="Transparent"
+                                        TextColor="{StaticResource Gray900}" />
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Generate Button -->
+                    <Button Text="Generar Informe"
+                            Command="{Binding GenerateReportCommand}"
+                            BackgroundColor="{StaticResource Primary}"
+                            TextColor="White"
+                            Margin="0,10,0,0"
+                            HeightRequest="50"
+                            CornerRadius="10"
+                            FontAttributes="Bold" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}"
+                             HeightRequest="40" />
+
+            <!-- Report Results -->
+            <VerticalStackLayout Spacing="15" IsVisible="{Binding HasData}">
+
+                <!-- Report Title -->
+                <Label Text="{Binding Title}"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource Gray900}"
+                       HorizontalOptions="Center" />
+
+                <!-- Summary Cards -->
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="15" RowSpacing="15">
+
+                    <!-- Total Income -->
+                    <Border Grid.Column="0" Grid.Row="0"
+                            BackgroundColor="#4CAF50"
+                            StrokeThickness="0"
+                            Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="💰" FontSize="30" HorizontalOptions="Center" />
+                            <Label Text="Total Ingresos"
+                                   TextColor="White"
+                                   FontSize="12"
+                                   HorizontalOptions="Center" />
+                            <Label Text="{Binding TotalIncome, StringFormat='${0:N2}'}"
+                                   TextColor="White"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Total Expense -->
+                    <Border Grid.Column="1" Grid.Row="0"
+                            BackgroundColor="#F44336"
+                            StrokeThickness="0"
+                            Padding="15">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="💸" FontSize="30" HorizontalOptions="Center" />
+                            <Label Text="Total Egresos"
+                                   TextColor="White"
+                                   FontSize="12"
+                                   HorizontalOptions="Center" />
+                            <Label Text="{Binding TotalExpense, StringFormat='${0:N2}'}"
+                                   TextColor="White"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <!-- Net Flow -->
+                    <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
+                            BackgroundColor="{StaticResource Primary}"
+                            StrokeThickness="0"
+                            Padding="20">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="📊 Flujo Neto"
+                                   TextColor="White"
+                                   FontSize="14"
+                                   HorizontalOptions="Center" />
+                            <Label Text="{Binding NetFlow, StringFormat='${0:N2}'}"
+                                   TextColor="White"
+                                   FontSize="28"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Border>
+                </Grid>
+
+                <!-- Transaction Count -->
+                <Border BackgroundColor="{StaticResource Gray100}"
+                        StrokeThickness="0"
+                        Padding="15">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Label Text="📝" FontSize="20" />
+                        <Label Text="Total de transacciones:"
+                               FontSize="14"
+                               TextColor="{StaticResource Gray700}"
+                               VerticalOptions="Center" />
+                        <Label Text="{Binding TransactionCount}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- No Data Message -->
+            <VerticalStackLayout Spacing="10"
+                               IsVisible="{Binding HasData}"
+                               Margin="0,40,0,0">
+                <Label Text="📊" FontSize="60" HorizontalOptions="Center" />
+                <Label Text="Genera un informe para ver los resultados"
+                       FontSize="16"
+                       TextColor="{StaticResource Gray600}"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

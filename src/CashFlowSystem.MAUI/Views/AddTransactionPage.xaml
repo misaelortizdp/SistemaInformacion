@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:CashFlowSystem.MAUI.ViewModels"
+             xmlns:models="clr-namespace:CashFlowSystem.MAUI.Models"
+             x:Class="CashFlowSystem.MAUI.Views.AddTransactionPage"
+             x:DataType="viewmodels:AddTransactionViewModel"
+             Title="Nueva Transacción">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="Agregar Transacción"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource Gray900}" />
+
+            <!-- Transaction Type -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Tipo de Transacción" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Picker ItemsSource="{Binding TransactionTypes}"
+                        SelectedItem="{Binding Type}"
+                        BackgroundColor="White"
+                        TextColor="{StaticResource Gray900}" />
+            </VerticalStackLayout>
+
+            <!-- Amount -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Monto *" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Border BackgroundColor="White"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource Gray300}"
+                        Padding="12,8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding Amount}"
+                           Placeholder="0.00"
+                           Keyboard="Numeric"
+                           BackgroundColor="Transparent" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Description -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Descripción *" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Border BackgroundColor="White"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource Gray300}"
+                        Padding="12,8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding Description}"
+                           Placeholder="Ingrese descripción"
+                           BackgroundColor="Transparent" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Date -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Fecha" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Border BackgroundColor="White"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource Gray300}"
+                        Padding="12,8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <DatePicker Date="{Binding Date}"
+                                BackgroundColor="Transparent"
+                                TextColor="{StaticResource Gray900}" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Category -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Categoría *" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Picker ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        ItemDisplayBinding="{Binding Name}"
+                        BackgroundColor="White"
+                        TextColor="{StaticResource Gray900}" />
+            </VerticalStackLayout>
+
+            <!-- Payment Method -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Método de Pago *" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Picker ItemsSource="{Binding PaymentMethods}"
+                        SelectedItem="{Binding SelectedPaymentMethod}"
+                        ItemDisplayBinding="{Binding Name}"
+                        BackgroundColor="White"
+                        TextColor="{StaticResource Gray900}" />
+            </VerticalStackLayout>
+
+            <!-- Reference Number -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Número de Referencia (Opcional)" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Border BackgroundColor="White"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource Gray300}"
+                        Padding="12,8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <Entry Text="{Binding ReferenceNumber}"
+                           Placeholder="Ej: #12345"
+                           BackgroundColor="Transparent" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Notes -->
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Notas (Opcional)" TextColor="{StaticResource Gray700}" FontSize="14" />
+                <Border BackgroundColor="White"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource Gray300}"
+                        Padding="12,8">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="8" />
+                    </Border.StrokeShape>
+                    <Editor Text="{Binding Notes}"
+                            Placeholder="Notas adicionales..."
+                            HeightRequest="100"
+                            BackgroundColor="Transparent" />
+                </Border>
+            </VerticalStackLayout>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                             IsVisible="{Binding IsBusy}"
+                             Color="{StaticResource Primary}"
+                             HeightRequest="40" />
+
+            <!-- Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="15" Margin="0,20,0,0">
+                <Button Grid.Column="0"
+                        Text="Cancelar"
+                        Command="{Binding CancelCommand}"
+                        BackgroundColor="{StaticResource Gray300}"
+                        TextColor="{StaticResource Gray900}"
+                        HeightRequest="50"
+                        CornerRadius="10"
+                        FontAttributes="Bold" />
+
+                <Button Grid.Column="1"
+                        Text="Guardar"
+                        Command="{Binding SaveTransactionCommand}"
+                        BackgroundColor="{StaticResource Primary}"
+                        TextColor="White"
+                        HeightRequest="50"
+                        CornerRadius="10"
+                        FontAttributes="Bold" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
