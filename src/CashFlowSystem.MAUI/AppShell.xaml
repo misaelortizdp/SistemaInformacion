@@ -33,6 +33,18 @@
             ContentTemplate="{DataTemplate views:TransactionsPage}" />
 
         <ShellContent
+            Route="categories"
+            Title="Categorías"
+            Icon="folder.png"
+            ContentTemplate="{DataTemplate views:CategoriesPage}" />
+
+        <ShellContent
+            Route="paymentmethods"
+            Title="Pagos"
+            Icon="card.png"
+            ContentTemplate="{DataTemplate views:PaymentMethodsPage}" />
+
+        <ShellContent
             Route="reports"
             Title="Informes"
             Icon="chart.png"
