@@ -10,6 +10,7 @@ public partial class AppShell : Shell
 
         // Register routes
         Routing.RegisterRoute("addtransaction", typeof(AddTransactionPage));
+        Routing.RegisterRoute("searchtransactions", typeof(SearchTransactionsPage));
         Routing.RegisterRoute("AddEditCategory", typeof(AddEditCategoryPage));
         Routing.RegisterRoute("AddEditPaymentMethod", typeof(AddEditPaymentMethodPage));
     }
