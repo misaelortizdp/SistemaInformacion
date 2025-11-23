@@ -5,12 +5,12 @@
              xmlns:models="clr-namespace:CashFlowSystem.MAUI.Models"
              x:Class="CashFlowSystem.MAUI.Views.AddTransactionPage"
              x:DataType="viewmodels:AddTransactionViewModel"
-             Title="Nueva Transacción">
+             Title="{Binding IsEditMode, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Editar Transacción|Nueva Transacción'}">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
 
-            <Label Text="Agregar Transacción"
+            <Label Text="{Binding IsEditMode, Converter={StaticResource BoolToTextConverter}, ConverterParameter='Editar Transacción|Agregar Transacción'}"
                    FontSize="24"
                    FontAttributes="Bold"
                    TextColor="{StaticResource Gray900}" />

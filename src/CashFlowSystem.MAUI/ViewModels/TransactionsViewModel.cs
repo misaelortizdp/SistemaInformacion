@@ -72,6 +72,17 @@ public partial class TransactionsViewModel : ObservableObject
     }
 
     [RelayCommand]
+    async Task EditTransaction(TransactionDto transaction)
+    {
+        var navigationParameter = new Dictionary<string, object>
+        {
+            { "Transaction", transaction }
+        };
+
+        await Shell.Current.GoToAsync("addtransaction", navigationParameter);
+    }
+
+    [RelayCommand]
     async Task DeleteTransaction(TransactionDto transaction)
     {
         var confirm = await Shell.Current.DisplayAlert(

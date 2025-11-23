@@ -6,10 +6,14 @@ using System.Collections.ObjectModel;
 
 namespace CashFlowSystem.MAUI.ViewModels;
 
+[QueryProperty(nameof(Transaction), "Transaction")]
 public partial class AddTransactionViewModel : ObservableObject
 {
     private readonly IApiService _apiService;
     private readonly IAuthService _authService;
+
+    [ObservableProperty]
+    private TransactionDto? transaction;
 
     [ObservableProperty]
     private DateTime date = DateTime.Now;
@@ -37,6 +41,9 @@ public partial class AddTransactionViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isBusy;
+
+    [ObservableProperty]
+    private bool isEditMode;
 
     public ObservableCollection<CategoryDto> Categories { get; } = new();
     public ObservableCollection<PaymentMethodDto> PaymentMethods { get; } = new();
@@ -127,11 +134,21 @@ public partial class AddTransactionViewModel : ObservableObject
                 Notes = Notes
             };
 
-            var result = await _apiService.PostAsync<TransactionDto>("/transactions", request);
+            TransactionDto? result;
+
+            if (IsEditMode && Transaction != null)
+            {
+                result = await _apiService.PutAsync<TransactionDto>($"/transactions/{Transaction.Id}", request);
+            }
+            else
+            {
+                result = await _apiService.PostAsync<TransactionDto>("/transactions", request);
+            }
 
             if (result != null)
             {
-                await Shell.Current.DisplayAlert("Éxito", "Transacción guardada", "OK");
+                await Shell.Current.DisplayAlert("Éxito",
+                    IsEditMode ? "Transacción actualizada" : "Transacción creada", "OK");
                 await Shell.Current.GoToAsync("..");
             }
             else
@@ -158,5 +175,30 @@ public partial class AddTransactionViewModel : ObservableObject
     partial void OnTypeChanged(string value)
     {
         _ = LoadData();
+    }
+
+    async partial void OnTransactionChanged(TransactionDto? value)
+    {
+        if (value != null)
+        {
+            IsEditMode = true;
+            Date = value.Date;
+            Amount = value.Amount;
+            Description = value.Description;
+            Type = value.Type;
+            ReferenceNumber = value.ReferenceNumber;
+            Notes = value.Notes;
+
+            // Load data first to populate categories and payment methods
+            await LoadData();
+
+            // Then set the selected items
+            SelectedCategory = Categories.FirstOrDefault(c => c.Id == value.CategoryId);
+            SelectedPaymentMethod = PaymentMethods.FirstOrDefault(p => p.Id == value.PaymentMethodId);
+        }
+        else
+        {
+            IsEditMode = false;
+        }
     }
 }
