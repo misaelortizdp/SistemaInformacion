@@ -30,7 +30,7 @@ builder.Services.AddControllers();
 
 // Configure Database
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configure Repositories and Unit of Work
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
