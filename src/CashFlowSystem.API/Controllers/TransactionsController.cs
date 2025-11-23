@@ -76,6 +76,24 @@ public class TransactionsController : ControllerBase
     }
 
     /// <summary>
+    /// Advanced search for transactions with multiple filters
+    /// </summary>
+    [HttpPost("search")]
+    public async Task<ActionResult<IEnumerable<TransactionDto>>> Search([FromBody] SearchTransactionsQuery query)
+    {
+        try
+        {
+            var transactions = await _mediator.Send(query);
+            return Ok(transactions);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error searching transactions");
+            return StatusCode(500, new { message = "An error occurred while searching transactions" });
+        }
+    }
+
+    /// <summary>
     /// Create a new transaction
     /// </summary>
     [HttpPost]
